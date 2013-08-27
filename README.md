@@ -16,3 +16,8 @@ Contributers:
 - phrewfuf - soldering
 - timm - pcb etching
 
+License
+=======
+
+The source code and media are available under public domain.
+See LICENSE for copying information
