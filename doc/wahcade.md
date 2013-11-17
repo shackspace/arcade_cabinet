@@ -62,7 +62,28 @@ start `wahcade-setup`
 Press the "Reload Button (two arrows in a circle)". This may take some time
 Now Press "Setup Filters", this will need forever and requires buttloads of
 RAM, 4 GB at least in total (ram + swap). This was a mayor caveat for me, as
-"Emulators -> List Generation -> Method: Rom Directory" did nothing for me...
+"Emulators -> List Generation -> Method: Rom Directory" did nothing for me.
+
+It always resulted in:
+
+    Traceback (most recent call last):
+    File "/usr/share/wahcade/win_filter.py", line 245, in on_cboLists_changed
+    self.load_filter()
+    File "/usr/share/wahcade/win_filter.py", line 275, in load_filter
+    if self.current_filter[fk[0]] == str(idx):
+    KeyError: 'filter_type'
+
+switching back to "Emulators -> List Generation -> Method: XML" resolved the
+issue but requires >4gb ram.
+
+### Add swap
+
+    # a lot of people use dd to fill a file with zeros but these are noobs,
+    # cool dudes use :
+    truncate --size 8G /swapfile
+    mkswap /swapfile
+    swapon /swapon
+    echo "/swapfile     none swap defaults 0 0" >> /etc/fstab
 
 After finishing, close the setup.
 
