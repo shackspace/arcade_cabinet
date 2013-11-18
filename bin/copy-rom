@@ -7,12 +7,24 @@ HOSTN=${HOSTN:-omo:8002}
 for i in roms:zip preview:png artwork:zip cabinet:png flyer:png icon:ico marquee:png  title:png cpanel:png; do
     NAME=${i%:*}  # split at :
     EXT=${i#*:}
-    printf "Getting %-20s: " "$NAME/$GAME.$EXT"
+    printf "Getting %-20s: \n" "$NAME/$GAME.$EXT"
     mkdir -p $MAMEDIR/$NAME
     cd $MAMEDIR/$NAME
-    if wget $HOSTN/$NAME/$GAME.$EXT >/dev/null 2>&1 ;then
-        echo "  [[0;32mSuccess[0;0m]"
+    #- Move the cursor up N lines:
+    #  \033[<N>A
+    #- Move the cursor down N lines:
+    #  \033[<N>B
+    #- Move the cursor forward N columns:
+    #  \033[<N>C
+    #- Move the cursor backward N columns:
+    #  \033[<N>D
+    # - Erase to end of line:
+    #   \033[K
+    if curl -f -o "$GAME.$EXT" "$HOSTN/$NAME/$GAME.$EXT" --progress-bar;then
+        echo "[2A[40C[[0;32mSuccess[0;0m]"
+        printf "[K"
     else
-        echo "  [[0;31mFailure[0;0m]"
+        echo "[3A[40C[[0;31mFailure[0;0m]"
+        printf "[K"
     fi
 done
