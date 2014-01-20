@@ -17,6 +17,12 @@ Wahcade is Frickelsoftware(tm).
 
 
 # Configuration
+## Important stuff
+### Refreshing games
+
+	ssh -X shack@kabinett wahcade-setup
+	'Mame Only' -> 'Setup Filters' -> 'Generate' -> 'wait forever'
+
 
 ## catver.ini
 Contains a Category for all the mame roms
